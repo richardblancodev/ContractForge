@@ -1,0 +1,15 @@
+# JavaScript dependencies
+**/node_modules/
+
+# Python environments and bytecode
+server/venv/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Generated frontend build
+Client/dist/
+
+# Local environment variables
+.env
+**/.env

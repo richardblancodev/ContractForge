@@ -1,0 +1,6 @@
+{
+  "python.analysis.extraPaths": [
+    "./server"
+  ],
+  "css.lint.unknownAtRules": "ignore"
+}

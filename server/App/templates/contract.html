@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ contract.contract_title }}</title>
+</head>
+<body>
+    <div class="header">
+        <table>
+            <tr>
+                <td>
+                    <h1 class="title">{{ contract.contract_title }}</h1>
+                    <div class="subtitle">Legally Binding Agreement</div>
+                </td>
+                <td style="text-align: right;">
+                    <strong>Date:</strong> {{ contract.effective_date }}<br>
+                    <strong>Ref:</strong> CNT-{{ contract.effective_date.strftime('%Y%m%d') }}-01
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <table class="parties-grid">
+        <tr>
+            <td class="party-box">
+                <div class="party-title">Service Provider</div>
+                <strong>{{ provider.company_name }}</strong><br>
+                Represented by: {{ provider.full_name }}<br>
+                Tax ID / Tax Registration: {{ provider.tax_id }}<br>
+                Email: {{ provider.email }}<br>
+                Address: {{ provider.address }}
+            </td>
+            <td style="width: 4%;"></td>
+            <td class="party-box">
+                <div class="party-title">Client</div>
+                <strong>{{ client.company_name or client.full_name }}</strong><br>
+                Attn: {{ client.full_name }}<br>
+                Tax ID / Registration: {{ client.tax_id }}<br>
+                Email: {{ client.email }}<br>
+                Address: {{ client.address }}
+            </td>
+        </tr>
+    </table>
+
+    <div class="section-title">1. Purpose & Scope of Services</div>
+    <div class="content-box">
+        <p>{{ contract.service_description }}</p>
+    </div>
+
+    <div class="section-title">2. Financial Terms & Compensation</div>
+    <table class="financial-table">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Currency</th>
+                <th>Total Agreed Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Professional Engineering Services (as detailed in Scope)</td>
+                <td>{{ contract.currency }}</td>
+                <td><strong>${{ contract.formatted_amount }}</strong></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p><strong>Payment Schedule & Terms:</strong> {{ contract.payment_terms }}</p>
+
+    <div class="section-title">3. Duration & Termination</div>
+    <p>This Agreement takes effect on <strong>{{ contract.effective_date }}</strong> and terminates automatically on <strong>{{ contract.expiration_date }}</strong> unless extended by mutual written authorization. Either party may terminate this agreement upon written notice if substantial default occurs.</p>
+
+    <div class="section-title">4. Signatures & Execution</div>
+    <table class="signatures">
+        <tr>
+            <td style="width: 45%;">
+                <div class="signature-line">
+                    For: {{ provider.company_name }}<br>
+                    Name: {{ provider.full_name }}
+                </div>
+            </td>
+            <td style="width: 10%;"></td>
+            <td style="width: 45%;">
+                <div class="signature-line">
+                    For: {{ client.company_name or client.full_name }}<br>
+                    Name: {{ client.full_name }}
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
