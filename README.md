@@ -14,7 +14,20 @@ A web application for creating service contracts from validated client, provider
 
 - **Backend**: Python 3.11, FastAPI, Pydantic v2, Jinja2, WeasyPrint, Uvicorn.
 - **Frontend**: React 18, Vite 5, Tailwind CSS 3, Lucide React.
-- **Containerization/deployment**: Docker; the app can be deployed with services such as Render (API) and Vercel (client).
+- **Containerization/deployment**: Docker and Render Blueprint (API and client).
+
+## ☁️ Deploy the full app to Render
+
+The repository includes a `render.yaml` Blueprint that creates both services:
+
+- `contractforge-api`: Docker web service built from `server/`, with `/health` as its health check.
+- `contractforge-web`: static site built from `Client/`; its `VITE_API_URL` points to the API service.
+
+To deploy, create a new Blueprint in Render, connect the `richardblancodev/ContractForge` GitHub repository, and select the branch to deploy. Render will read `render.yaml` and provision both services. The frontend is configured for `https://contractforge-web.onrender.com`, and the API CORS policy permits that origin.
+
+If Render assigns a different public hostname, update the frontend `VITE_API_URL` and the backend `ALLOWED_ORIGIN_REGEX` environment variable in the Render dashboard to match the actual service URLs, then redeploy.
+
+The backend may take a short time to respond after inactivity on plans that suspend idle services. During that time the frontend request can appear to be loading while the API starts.
 
 ## 🚀 Local Development
 

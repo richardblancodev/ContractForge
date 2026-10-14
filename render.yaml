@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: contractforge-api
+    runtime: docker
+    rootDir: server
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    envVars:
+      - key: ALLOWED_ORIGIN_REGEX
+        value: '^https://contractforge-web\.onrender\.com$'
+
+  - type: web
+    name: contractforge-web
+    runtime: static
+    rootDir: Client
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://contractforge-api.onrender.com/api/v1
