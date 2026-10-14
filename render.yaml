@@ -2,6 +2,7 @@ services:
   - type: web
     name: contractforge-api
     runtime: docker
+    plan: free
     rootDir: server
     dockerfilePath: ./Dockerfile
     healthCheckPath: /health

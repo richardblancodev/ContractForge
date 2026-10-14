@@ -23,6 +23,8 @@ The repository includes a `render.yaml` Blueprint that creates both services:
 - `contractforge-api`: Docker web service built from `server/`, with `/health` as its health check.
 - `contractforge-web`: static site built from `Client/`; its `VITE_API_URL` points to the API service.
 
+Both services are configured for Render's free offering: static sites have no compute charge, and the API uses the `free` web-service plan. The free API has 512 MB RAM and spins down after 15 minutes without traffic; its first request after that can take about a minute while it starts. Free services also have monthly bandwidth and build-minute limits, so check the Render dashboard's usage and billing settings if you need to ensure you never exceed included usage.
+
 To deploy, create a new Blueprint in Render, connect the `richardblancodev/ContractForge` GitHub repository, and select the branch to deploy. Render will read `render.yaml` and provision both services. The frontend is configured for `https://contractforge-web.onrender.com`, and the API CORS policy permits that origin.
 
 If Render assigns a different public hostname, update the frontend `VITE_API_URL` and the backend `ALLOWED_ORIGIN_REGEX` environment variable in the Render dashboard to match the actual service URLs, then redeploy.
